@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop Acc Uy Tín | Mua Bán Tài Khoản Game</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        secondary: '#FF7D00',
+                        dark: '#1E293B',
+                        darkBg: '#0F172A',
+                        card: '#1E293B',
+                        success: '#10B981',
+                        danger: '#EF4444',
+                        warning: '#F59E0B',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .card-hover {
+                @apply transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-primary/20;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            }
+            .scrollbar-hide::-webkit-scrollbar {
+                display: none;
+            }
+        }
+    </style>
+    <style>
+        body {
+            background-color: #0F172A;
+            background-image: 
+                radial-gradient(circle at top right, rgba(22, 93, 255, 0.1), transparent 40%),
+                radial-gradient(circle at bottom left, rgba(255, 125, 0, 0.08), transparent 40%);
+            background-attachment: fixed;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #165DFF, #FF7D00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #165DFF, #FF7D00);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .tab-btn.active { background: linear-gradient(90deg, #165DFF, #FF7D00); color: white; }
+        input, select { background-color: #1E293B; border-color: #334155; }
+        input:focus, select:focus { outline: none; border-color: #165DFF; box-shadow: 0 0 0 2px rgba(22,93,255,0.2); }
+    </style>
+</head>
+<body class="font-sans text-white min-h-screen">
+    <!-- ===== Header / Navbar ===== -->
+    <header class="sticky top-0 z-50 bg-darkBg/80 backdrop-blur-md border-b border-white/10">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between py-3">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-2">
+                    <span class="text-2xl font-bold gradient-text">SHOPACC</span>
+                    <span class="hidden sm:inline text-xs bg-secondary/20 text-secondary px-2 py-0.5 rounded-full">Uy Tín 100%</span>
+                </a>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex items-center gap-6">
+                    <a href="#" class="nav-link font-medium hover:text-primary transition-colors">Trang Chủ</a>
+                    <a href="#danh-muc" class="nav-link font-medium hover:text-primary transition-colors">Danh Mục</a>
+                    <a href="#san-pham" class="nav-link font-medium hover:text-primary transition-colors">Tài Khoản</a>
+                    <a href="#nap-tien" class="nav-link font-medium hover:text-primary transition-colors">Nạp Tiền</a>
+                    <a href="#huong-dan" class="nav-link font-medium hover:text-primary transition-colors">Hướng Dẫn</a>
+                </nav>
+
+                <!-- Tài khoản / Số dư / Nút bấm -->
+                <div class="hidden md:flex items-center gap-3">
+                    <div class="bg-success/10 px-3 py-1.5 rounded-lg flex items-center gap-2">
+                        <i class="fa fa-wallet text-success"></i>
+                        <span class="text-sm font-medium">Số dư:</span>
+                        <span id="balance" class="font-bold text-success">0đ</span>
+                    </div>
+                    <button id="userBtn" class="px-4 py-2 rounded-lg bg-primary hover:bg-primary/90 transition-all">
+                        <i class="fa fa-user-circle mr-1"></i> Tài Khoản
+                    </button>
+                </div>
+
+                <!-- Nút menu di động -->
+                <button id="menuBtn" class="md:hidden text-2xl">
+                    <i class="fa fa-bars"></i>
+                </button>
+            </div>
+
+            <!-- Menu di động -->
+            <div id="mobileMenu" class="md:hidden hidden pb-4 pt-2">
+                <nav class="flex flex-col gap-3">
+                    <a href="#" class="py-2 px-3 rounded-lg hover:bg-primary/10">Trang Chủ</a>
+                    <a href="#danh-muc" class="py-2 px-3 rounded-lg hover:bg-primary/10">Danh Mục</a>
+                    <a href="#san-pham" class="py-2 px-3 rounded-lg hover:bg-primary/10">Tài Khoản</a>
+                    <a href="#nap-tien" class="py-2 px-3 rounded-lg hover:bg-primary/10">Nạp Tiền</a>
+                    <a href="#huong-dan" class="py-2 px-3 rounded-lg hover:bg-primary/10">Hướng Dẫn</a>
+                    <div class="bg-success/10 px-3 py-2 rounded-lg mt-2 flex justify-between items-center">
+                        <span>Số dư:</span>
+                        <span id="balanceMobile" class="font-bold text-success">0đ</span>
+                    </div>
+                    <button class="mt-2 py-2 rounded-lg bg-primary">Tài Khoản</button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- ===== Banner chính ===== -->
+        <section class="py-12 md:py-16">
+            <div class="container mx-auto px-4">
+                <div class="rounded-2xl bg-gradient-to-r from-primary/20 to-secondary/20 border border-white/10 p-6 md:p-10">
+                    <div class="grid md:grid-cols-2 gap-8 items-center">
+                        <div>
+                            <h1 class="text-[clamp(1.8rem,5vw,3rem)] font-bold leading-tight mb-4">
+                                Mua Bán Tài Khoản Game <br>
+                                <span class="gradient-text">Uy Tín & An Toàn</span>
+                            </h1>
+                            <p class="text-gray-300 text-lg mb-6">Nạp tiền nhanh • Thanh toán tự động • Bảo hành vĩnh viễn 🔐</p>
+                            <div class="flex flex-wrap gap-3">
+                                <a href="#san-pham" class="px-6 py-3 bg-secondary rounded-lg font-medium hover:bg-secondary/90 transition-all">
+                                    <i class="fa fa-fire mr-2"></i> Xem Tài Khoản
+                                </a>
+                                <a href="#nap-tien" class="px-6 py-3 bg-primary rounded-lg font-medium hover:bg-primary/90 transition-all">
+                                    <i class="fa fa-credit-card mr-2"></i> Nạp Ngay
+                                </a>
+                            </div>
+                        </div>
+                        <div class="hidden md:block">
+                            <img src="https://picsum.photos/id/237/600/400" alt="Banner Shop Acc" class="rounded-xl shadow-2xl w-full object-cover">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== Nạp Tiền - CHỨC NĂNG MỚI ===== -->
+        <section id="nap-tien" class="py-12 bg-white/[0.02]">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-8">
+                    <h2 class="text-2xl font-bold">Nạp Tiền Vào Tài Khoản</h2>
+                    <p class="text-gray-400 mt-2">Chọn phương thức nạp tiền phù hợp, tự động cập nhật số dư</p>
+                </div>
+
+                <div class="max-w-3xl mx-auto">
+                    <!-- Tab chọn phương thức -->
+                    <div class="flex mb-6 bg-card rounded-lg p-1">
+                        <button class="tab-btn active flex-1 py-3 px-4 rounded-md font-medium transition-all" data-tab="the-cao">
+                            <i class="fa fa-credit-card mr-2"></i> Nạp Thẻ Cào
+                        </button>
+                        <button class="tab-btn flex-1 py-3 px-4 rounded-md font-medium bg-white/5 hover:bg-white/10 transition-all" data-tab="ngan-hang">
+                            <i class="fa fa-bank mr-2"></i> Nạp Ngân Hàng
+                        </button>
+                        <button class="tab-btn flex-1 py-3 px-4 rounded-md font-medium bg-white/5 hover:bg-white/10 transition-all" data-tab="danh-sach-the">
+                            <i class="fa fa-list mr-2"></i> Thẻ Đã Lưu
+                        </button>
+                    </div>
+
+                    <!-- Nội dung Tab: Nạp Thẻ Cào -->
+                    <div id="the-cao" class="tab-content active">
+                        <div class="bg-card rounded-xl p-6 border border-white/5">
+                            <h3 class="font-bold text-lg mb-4">Thông Tin Thẻ Cào</h3>
+                            <form id="formTheCao" class="space-y-4">
+                                <div>
+                                    <label class="block text-sm text-gray-400 mb-1">Nhà Mạng</label>
+                                    <select id="nhaMang" class="w-full px-4 py-3 rounded-lg border border-white/10">
+                                        <option value="">-- Chọn nhà mạng --</option>
+                                        <option value="viettel">Viettel</option>
+                                        <option value="vinaphone">Vinaphone</option>
+                                        <option value="mobifone">Mobifone</option>
+                                        <option value="vietnamobile">Vietnamobile</option>
+                                        <option value="garena">Thẻ Garena</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm text-gray-400 mb-1">Mã Thẻ</label>
+                                    <input type="text" id="maThe" placeholder="Nhập mã in trên thẻ" 
+                                        class="w-full px-4 py-3 rounded-lg border border-white/10">
+                                </div>
+                                <div>
+                                    <label class="block text-sm text-gray-400 mb-1">Số Seri</label>
+                                    <input type="text" id="seriThe" placeholder="Nhập số seri" 
+                                        class="w-full px-4 py-3 rounded-lg border border-white/10">
+                                </div>
+                                <div>
+                                    <label class="block text-sm text-gray-400 mb-1">Mệnh Giá</label>
+                                    <select id="menhGia" class="w-full px-4 py-3 rounded-lg border border-white/10">
+                                        <option value="">-- Chọn mệnh giá --</option>
+                                        <option value="10000">10.000đ</option>
+                                        <option value="20000">20.000đ</option>
+                                        <option value="50000">50.000đ</option>
+                                        <option value="100000">100.000đ</option>
+                                        <option value="200000">200.000đ</option>
+                                        <option value="500000">500.000đ</option>
+                                        <option value="1000000">1.000.000đ</option>
+                                    </select>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <input type="checkbox" id="luuThe" class="w-4 h-4 rounded">
+                                    <label for="luuThe" class="text-sm text-gray-400">Lưu thông tin thẻ cho lần sau</label>
+                                </div>
+                                <button type="submit" class="w-full py-3 bg-secondary hover:bg-secondary/90 rounded-lg font-bold text-lg">
+                                    <i class="fa fa-paper-plane mr-2"></i> Nạp Ngay
+                                </button>
+                            </form>
+                            <p class="text-xs text-gray-500 mt-3 text-center">* Lưu ý: Phí xử lý thẻ cào từ 10-15% tùy nhà mạng</p>
+                        </div>
+                    </div>
+
+                    <!-- Nội dung Tab: Nạp Ngân Hàng -->
+                    <div id="ngan-hang" class="tab-content">
+                        <div class="bg-card rounded-xl p-6 border border-white/5">
+                            <h3 class="font-bold text-lg mb-4">Thông Tin Chuyển Khoản</h3>
+                            
+                            <!-- Thông tin tài khoản nhận tiền -->
+                            <div class="bg-primary/10 rounded-lg p-4 mb-6 border border-primary/20">
+                                <p class="text-sm text-gray-400 mb-2">Thông tin tài khoản nhận:</p>
+                                <div class="space-y-2">
+                                    <p><span class="text-gray-400">Ngân hàng:</span> <span class="font-bold">VIETCOMBANK</span></p>
+                                    <p><span class="text-gray-400">Số tài khoản:</span> <span class="font-bold select-all">1023456789</span></p>
+                                    <p><span class="text-gray-400">Chủ TK:</span> <span class="font-bold">NGUYEN VAN A</span></p>
+                                    <p><span class="text-gray-400">Nội dung CK:</span> <span class="font-bold text-success">NAPTIEN12345</span> <button class="text-xs bg-primary/20 px-2 py-0.5 rounded ml-1">Sao chép</button></p>
+                                </div>
+                            </div>
+
+                            <form id="formNganHang" class="space-y-4">
+                                <div>
+                                    <label class="block text-sm text-gray-400 mb-1">Số Tiền Nạp</label>
+                                    <input type="number" id="soTienNap" placeholder="Nhập số tiền cần nạp" min="50000"
+                                        class="w-full px-4 py-3 rounded-lg border border-white/10">
+                                    <p class="text-xs text-gray-500 mt-1">Tối thiểu 50.000đ • Không mất phí</p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm text-gray-400 mb-1">Mã Giao Dịch (nếu có)</label>
+                                    <input type="text" id="maGiaoDich" placeholder="Nhập mã giao dịch ngân hàng"
+                                        class="w-full px-4 py-3 rounded-lg border border-white/10">
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <input type="checkbox" id="luuNganHang" class="w-4 h-4 rounded">
+                                    <label for="luuNganHang" class="text-sm text-gray-400">Lưu thông tin ngân hàng của tôi</label>
+                                </div>
+                                <button type="submit" class="w-full py-3 bg-success hover:bg-success/90 rounded-lg font-bold text-lg">
+                                    <i class="fa fa-check-circle mr-2"></i> Xác Nhận Đã Chuyển
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Nội dung Tab: Thẻ Đã Lưu -->
+                    <div id="danh-sach-the" class="tab-content">
+                        <div class="bg-card rounded-xl p-6 border border-white/5">
+                            <h3 class="font-bold text-lg mb-4">Thẻ & Tài Khoản Đã Lưu</h3>
+                            
+                            <div id="danhSachTheDaLuu" class="space-y-3">
+                                <p class="text-gray-400 text-center py-4">Chưa có thẻ nào được lưu</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lịch sử nạp tiền -->
+                <div class="max-w-3xl mx-auto mt-8">
+                    <h3 class="font-bold text-lg mb-4">Lịch Sử Giao Dịch</h3>
+                    <div class="bg-card rounded-xl border border-white/5 overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm">
+                                <thead class="bg-white/5">
+                                    <tr>
+                                        <th class="px-4 py-3 text-left">Thời Gian</th>
+                                        <th class="px-4 py-3 text-left">Phương Thức</th>
+                                        <th class="px-4 py-3 text-left">Số Tiền</th>
+                                        <th class="px-4 py-3 text-left">Trạng Thái</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="lichSuGiaoDich">
+                                    <tr>
+                                        <td colspan="4" class="px-4 py-6 text-center text-gray-400">Chưa có giao dịch nào</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== Danh mục game ===== -->
+        <section id="danh-muc" class="py-12">
+            <div class="container mx-auto px-4">
+                <div class="flex justify-between items-end mb-6">
+                    <div>
+                        <h2 class="text-2xl font-bold">Danh Mục Tài Khoản</h2>
+                        <p class="text-gray-400">Chọn game bạn muốn sở hữu</p>
+                    </div>
+                    <a href="#" class="text-primary hover:underline text-sm">Xem tất cả <i class="fa fa-chevron-right text-xs"></i></a>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                    <a href="#" class="bg-card rounded-xl p-4 border border-white/5 card-hover text-center">
+                        <img src="https://picsum.photos/id/1/100/100" alt="Liên Quân" class="w-16 h-16 rounded-lg mx-auto mb-3 object-cover">
+                        <h3 class="font-medium">Liên Quân Mobile</h3>
+                        <p class="text-xs text-gray-400 mt-1">1.240 tài khoản</p>
+                    </a>
+                    <a href="#" class="bg-card rounded-xl p-4 border border-white/5 card-hover text-center">
+                        <img src="https://picsum.photos/id/2/100/100" alt="Free Fire" class="w-16 h-16 rounded-lg mx-auto mb-3 object-cover">
+                        <h3 class="font-medium">Free Fire</h3>
+                        <p class="text-xs text-gray-400 mt-1">896 tài khoản</p>
+                    </a>
+                    <a href="#" class="bg-card rounded-xl p-4 border border-white/5 card-hover text-center">
+                        <img src="https://picsum.photos/id/3/100/100" alt="Genshin" class="w-16 h-16 rounded-lg mx-auto mb-3 object-cover">
+                        <h3 class=
+                      
